@@ -7,6 +7,9 @@ const paths = {
 };
 
 module.exports = {
+    devServer: {
+        contentBase: path.join(__dirname, 'dist')
+    },
     context: paths.src, // базовая директория для точек входа и загрузчиков
     entry: {
         app: './index'  // точка входа в приложение, наш src/index.ts файл, названием итогового бандла будет имя свойства - app
@@ -18,7 +21,7 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.ts'] // указание расширений файлов, которые webpack будет обрабатывать, и пытаться добавить автоматически (например получив запрос на index, не найдет его и попробует index.ts)
+        extensions: [".wasm", ".mjs", ".js", ".jsx", ".ts", ".tsx", ".json"],
     },
 
     devtool: 'inline-source-map', // дополнительные настройки и загрузчики не требуются, хотя даже официальный рецепт от TypeScript рекомендует source-map-loader и поле в tsconfig - "sourceMap": true
