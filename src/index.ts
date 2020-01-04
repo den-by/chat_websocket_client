@@ -7,3 +7,6 @@ function hello(props: Props) {
 }
 
 hello({ world: 'TypeScript!' });
+
+import {obj} from './test';
+alert(obj.a);
