@@ -26,6 +26,10 @@ enum responseType {
 
 class Client {
     private socket: WebSocket;
+    private userList;
+    private input;
+    private ;
+
 
     constructor(address) {
         this.socket = new WebSocket("ws://127.0.0.1:8080/article/websocket/demo/hello");
@@ -68,6 +72,7 @@ class Client {
         let a: response = JSON.parse(data);
         switch (+a.requestType) {
             case responseType.userSays:
+
                 break;
             case responseType.userConnected:
                 break;
