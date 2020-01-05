@@ -8,8 +8,8 @@ class ChatArea {
         this.render();
     }
 
-    public addRow(userName: string): void {
-        this.messagesArray.push(userName);
+    public addRow(row: string): void {
+        this.messagesArray.push(row);
         this.render();
     }
 
@@ -25,7 +25,7 @@ class ChatArea {
     }
 
     private render(): void {
-        this.textArea.value = this.messagesArray.join('&#13;&#10;');
+        this.textArea.value = this.messagesArray.join('\n');
     }
 
 
