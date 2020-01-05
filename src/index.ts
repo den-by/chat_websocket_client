@@ -16,7 +16,7 @@ import Input from "./Input";
 
 let userList = new UserList(document.getElementById('userList'));
 let chatArea = new ChatArea(document.getElementById('textArea'));
-let input = new Input(document.getElementById('input'), document.getElementById('button'), () => alert('1'));
+let input = new Input(document.getElementById('input'), document.getElementById('button'), (text) => alert(text));
 userList.addUser('Вася');
 userList.addUser('Вася2');
 userList.addUser('Коля');

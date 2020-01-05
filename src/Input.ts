@@ -4,16 +4,16 @@ class Input {
     }
 
     private input;
-    private _callback;
+    private _callback = (text) => {
+    };
 
-    constructor(input, button, callback) {
+    constructor(input, button, callback?) {
         this.input = input;
         this._callback = callback;
         button.onclick = () => this.event();
     }
 
     private event() {
-        debugger
         let text = this.input.value;
         this.input.value = '';
         this._callback(text);
