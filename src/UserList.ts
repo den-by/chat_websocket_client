@@ -18,17 +18,17 @@ class UserList {
         this.render();
     }
 
-    public resetUserList() {
+    public resetUserList(): void {
         this.userList = [];
         this.render();
     }
 
-    public loadUserList(userList: string[]) {
+    public loadUserList(userList: string[]): void {
         this.userList = userList;
         this.render();
     }
 
-    private render() {
+    private render(): void {
         this.select.options.length = 0;
         this.userList.forEach((value, key) => {
             let option = new Option(value, key.toString());
