@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="app.bundle.js"></script>
+    <script defer src="app.bundle.js"></script>
 </head>
 <body>
-
+<div>
+    <input type="text" id="key" placeholder="Секретный ключ">
+    <input type="text" id="name" placeholder="Ваше имя">
+    <input type="button" id="start" value="Войти">
+</div>
+<div style="display: flex">
+    <div>
+        <div>Окно чата
+        </div>
+        <div>
+            <textarea id="textarea" readonly></textarea>
+        </div>
+        <div>
+            <input type="text" placeholder="Отправить сообщение" id="text">
+        </div>
+        <div>
+            <input type="button" id="send" value="send">
+        </div>
+    </div>
+    <div>
+        <div>Пользователи
+        </div>
+        <div><select id="users" size="10">
+            <option value="Visa">Visa</option>
+            <option value="Mastercard">Mastercard</option>
+            <option value="American Express">American Express</option>
+        </select></div>
+    </div>
+</div>
 </body>
 </html>
