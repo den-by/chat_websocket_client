@@ -28,7 +28,6 @@ class UserList {
         this.render();
     }
 
-
     private render() {
         this.select.options.length = 0;
         this.userList.forEach((value, key) => {
@@ -36,7 +35,6 @@ class UserList {
             this.select.append(option)
         })
     }
-
 }
 
 export default UserList;
