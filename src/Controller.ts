@@ -17,7 +17,7 @@ enum requestType {
 }
 
 interface response {
-    requestType: responseType;
+    responseType: responseType;
     data?: {}
 }
 
@@ -48,8 +48,8 @@ class Controller {
         this.socket.onmessage = (event) => {
             this.onMessage(event.data);
         };
-        this.loginArea.callback = (data) => this.say(data);
-        this.input.callback = (data) => this.login(data);
+        this.loginArea.callback = (data) => this.login(data);
+        this.input.callback = (data) => this.say(data);
     }
 
     public onMessage(data): void {
@@ -59,7 +59,7 @@ class Controller {
         } catch (e) {
             return;
         }
-        switch (+response.requestType) {
+        switch (+response.responseType) {
             case responseType.newMessage:
                 this.chatArea.addRow(response.data['text']);
                 break;
