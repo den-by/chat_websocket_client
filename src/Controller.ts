@@ -1,7 +1,7 @@
 import UserList from "./UserList";
 import ChatArea from "./ChatArea";
 import Input from "./Input";
-
+import LoginArea from "./LoginArea";
 interface request {
     requestType: requestType;
     data?: {}
@@ -35,16 +35,20 @@ class Controller {
     private chatArea: ChatArea;
     private input: Input;
     private socket: WebSocket;
+    private loginArea: LoginArea;
 
     constructor() {
+        this.socket = new WebSocket("ws://127.0.0.1:8080/article/websocket/demo/hello");
         this.userList = new UserList(document.getElementById('userList'));
         this.chatArea = new ChatArea(document.getElementById('textArea'));
-        this.input = new Input(document.getElementById('input'), document.getElementById('button'), (text) => alert(text));
+        this.input = new Input(document.getElementById('input'), document.getElementById('button'));
+        this.loginArea = new LoginArea(document.getElementById('userName'), document.getElementById('loginButton'));
         this.socket.onopen = this.connect;
         this.socket.onmessage = (event) => {
             this.onMessage(event.data);
         };
-        this.input.callback = (data) => this.say(data);
+        this.loginArea.callback = (data) => this.say(data);
+        this.input.callback = (data) => this.login(data);
     }
 
     public onMessage(data) {
@@ -78,7 +82,7 @@ class Controller {
     }
 
     private connect = () => {
-        this.login('1');
+       // this.login('1');
 
         // alert("[open] Соединение установлено");
         // alert("Отправляем данные на сервер");
@@ -110,4 +114,4 @@ class Controller {
         this.socket.send(JSON.stringify(data));
     }
 
-}
+}export default Controller;
