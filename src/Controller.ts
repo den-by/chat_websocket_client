@@ -2,6 +2,7 @@ import UserList from "./UserList";
 import ChatArea from "./ChatArea";
 import Input from "./Input";
 import LoginArea from "./LoginArea";
+
 interface request {
     requestType: requestType;
     data?: {}
@@ -51,25 +52,30 @@ class Controller {
         this.input.callback = (data) => this.login(data);
     }
 
-    public onMessage(data) {
-        let a: response = JSON.parse(data);
-        switch (+a.requestType) {
+    public onMessage(data): void {
+        let response: response;
+        try {
+            response = JSON.parse(data);
+        } catch (e) {
+            return;
+        }
+        switch (+response.requestType) {
             case responseType.newMessage:
-                this.chatArea.addRow(a.data['text']);
+                this.chatArea.addRow(response.data['text']);
                 break;
             case responseType.userConnected:
-                this.userList.addUser(a.data['user']);
+                this.userList.addUser(response.data['user']);
                 break;
             case responseType.userDisconnected:
-                this.userList.deleteUser(a.data['user']);
+                this.userList.deleteUser(response.data['user']);
                 break;
             case responseType.serverKick:
                 break;
             case responseType.messagesList:
-                this.chatArea.loadMessageList(a.data['messageList']);
+                this.chatArea.loadMessageList(response.data['messageList']);
                 break;
             case responseType.usersList:
-                this.userList.loadUserList(a.data['userList']);
+                this.userList.loadUserList(response.data['userList']);
                 break;
             case responseType.loginSuccessfully:
                 this.getMessages(10);
@@ -82,7 +88,7 @@ class Controller {
     }
 
     private connect = () => {
-       // this.login('1');
+        // this.login('1');
 
         // alert("[open] Соединение установлено");
         // alert("Отправляем данные на сервер");
@@ -114,4 +120,6 @@ class Controller {
         this.socket.send(JSON.stringify(data));
     }
 
-}export default Controller;
+}
+
+export default Controller;
