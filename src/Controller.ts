@@ -11,7 +11,7 @@ enum requestType {
     login = 0,
     say = 1,
     getUsers = 2,
-    disconnect = 3,
+    logOut = 3,
     getMessages = 4,
 }
 
@@ -21,7 +21,7 @@ interface response {
 }
 
 enum responseType {
-    userSays = 0,
+    newMessage = 0,
     userConnected = 1,
     userDisconnected = 2,
     usersList = 3,
@@ -40,12 +40,15 @@ class Controller {
         this.chatArea = new ChatArea(document.getElementById('textArea'));
         this.input = new Input(document.getElementById('input'), document.getElementById('button'), (text) => alert(text));
         this.socket.onopen = this.connect;
+        this.socket.onmessage = (event) => {
+            this.onMessage(event.data);
+        };
     }
 
     public onMessage(data) {
         let a: response = JSON.parse(data);
         switch (+a.requestType) {
-            case responseType.userSays:
+            case responseType.newMessage:
                 break;
             case responseType.userConnected:
                 break;
@@ -89,8 +92,8 @@ class Controller {
         this.socket.send(JSON.stringify(data));
     }
 
-    private disconnect() {
-        let data: request = {requestType: requestType.disconnect};
+    private logOut() {
+        let data: request = {requestType: requestType.logOut};
         this.socket.send(JSON.stringify(data));
     }
 
