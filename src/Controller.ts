@@ -25,8 +25,8 @@ enum responseType {
     newMessage = 0,
     userConnected = 1,
     userDisconnected = 2,
-    usersList = 3,
-    messagesList = 4,
+    userList = 3,
+    messageList = 4,
     serverKick = 5,
     loginSuccessfully = 6
 }
@@ -59,6 +59,7 @@ class Controller {
         } catch (e) {
             return;
         }
+        debugger
         switch (+response.responseType) {
             case responseType.newMessage:
                 this.chatArea.addRow(response.data['text']);
@@ -71,15 +72,16 @@ class Controller {
                 break;
             case responseType.serverKick:
                 break;
-            case responseType.messagesList:
+            case responseType.messageList:
                 this.chatArea.loadMessageList(response.data['messageList']);
                 break;
-            case responseType.usersList:
+            case responseType.userList:
+                debugger
                 this.userList.loadUserList(response.data['userList']);
                 break;
             case responseType.loginSuccessfully:
-                this.getMessages(10);
-                this.getUsers();
+                //this.getMessages(10);
+                //this.getUsers();
                 break;
             default:
                 break;
