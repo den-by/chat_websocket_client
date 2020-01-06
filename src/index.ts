@@ -28,6 +28,4 @@ chatArea.addRow('test');
 //let client = new Client('3');
 //watcher.Watcher.add(document.body);
 
-import {obj} from './test';
-
 //alert(obj.a);
