@@ -26,7 +26,8 @@ enum responseType {
     userDisconnected = 2,
     usersList = 3,
     messagesList = 4,
-    serverKick = 5
+    serverKick = 5,
+    loginSuccessfully = 6
 }
 
 class Controller {
@@ -43,33 +44,45 @@ class Controller {
         this.socket.onmessage = (event) => {
             this.onMessage(event.data);
         };
+        this.input.callback = (data) => this.say(data);
     }
 
     public onMessage(data) {
         let a: response = JSON.parse(data);
         switch (+a.requestType) {
             case responseType.newMessage:
+                this.chatArea.addRow(a.data['text']);
                 break;
             case responseType.userConnected:
+                this.userList.addUser(a.data['user']);
                 break;
             case responseType.userDisconnected:
+                this.userList.deleteUser(a.data['user']);
                 break;
             case responseType.serverKick:
                 break;
             case responseType.messagesList:
+                this.chatArea.loadMessageList(a.data['messageList']);
                 break;
             case responseType.usersList:
+                this.userList.loadUserList(a.data['userList']);
+                break;
+            case responseType.loginSuccessfully:
+                this.getMessages(10);
+                this.getUsers();
                 break;
             default:
                 break;
         }
-        alert(`[message] Данные получены с сервера: ${data}`);
+        // alert(`[message] Данные получены с сервера: ${data}`);
     }
 
     private connect = () => {
-        alert("[open] Соединение установлено");
-        alert("Отправляем данные на сервер");
-        this.socket.send("Меня зовут Джон");
+        this.login('1');
+
+        // alert("[open] Соединение установлено");
+        // alert("Отправляем данные на сервер");
+        // this.socket.send("Меня зовут Джон");
     };
 
     private login(name) {

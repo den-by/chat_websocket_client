@@ -19,7 +19,7 @@ class ChatArea {
     }
 
 
-    public loadUserList(messagesArray: string[]): void {
+    public loadMessageList(messagesArray: string[]): void {
         this.messagesArray = messagesArray;
         this.render();
     }
