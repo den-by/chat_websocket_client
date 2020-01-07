@@ -112,8 +112,8 @@ class Controller {
         this.socket.send(JSON.stringify(data));
     }
 
-    private say(text) {
-        let data: request = {requestType: requestType.say, data: {text: text}};
+    private say(message) {
+        let data: request = {requestType: requestType.say, data: {message: message}};
         this.socket.send(JSON.stringify(data));
     }
 
