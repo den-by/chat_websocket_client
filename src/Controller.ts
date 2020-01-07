@@ -40,6 +40,7 @@ class Controller {
     private loginArea: LoginArea;
     private crypto;
     private pass = 'test';
+    private passInput;
 
     constructor() {
         this.crypto = new Crypto;
@@ -47,6 +48,7 @@ class Controller {
         this.userList = new UserList(document.getElementById('userList'));
         this.chatArea = new ChatArea(document.getElementById('textArea'));
         this.input = new Input(document.getElementById('input'), document.getElementById('button'));
+        this.passInput = document.getElementById('passInput');
         this.loginArea = new LoginArea(document.getElementById('userName'), document.getElementById('loginButton'));
         this.socket.onopen = this.connect;
         this.socket.onmessage = (event) => {
@@ -84,10 +86,8 @@ class Controller {
 
     private send(data) {
         const jsonData = JSON.stringify(data);
-        const cryptoData = Crypto.encryptRC2(jsonData, this.pass);
-        alert(cryptoData);
+        const cryptoData = Crypto.encryptRC2(jsonData, this.passInput.value || '-');
         const decryptData = Crypto.decryptRC2(cryptoData, this.pass);
-        alert (decryptData);
         this.socket.send(cryptoData);
 
     }
