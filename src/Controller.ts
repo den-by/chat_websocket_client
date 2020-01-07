@@ -89,7 +89,6 @@ class Controller {
         const cryptoData = Crypto.encryptRC2(jsonData, this.passInput.value || '-');
         const decryptData = Crypto.decryptRC2(cryptoData, this.pass);
         this.socket.send(cryptoData);
-
     }
 
     private login(name) {
