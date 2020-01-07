@@ -2,6 +2,7 @@ import UserList from "./UserList";
 import ChatArea from "./ChatArea";
 import Input from "./Input";
 import LoginArea from "./LoginArea";
+import Crypto from './crypto'
 
 interface request {
     requestType: requestType;
@@ -64,14 +65,6 @@ class Controller {
             case responseType.newMessage:
                 this.chatArea.addRow(response.data['text']);
                 break;
-            case responseType.userConnected:
-                this.userList.addUser(response.data['user']);
-                break;
-            case responseType.userDisconnected:
-                this.userList.deleteUser(response.data['user']);
-                break;
-            case responseType.serverKick:
-                break;
             case responseType.messageList:
                 this.chatArea.loadMessageList(response.data['messageList']);
                 break;
@@ -79,47 +72,28 @@ class Controller {
                 debugger
                 this.userList.loadUserList(response.data['userList']);
                 break;
-            case responseType.loginSuccessfully:
-                //this.getMessages(10);
-                //this.getUsers();
-                break;
             default:
                 break;
         }
-        // alert(`[message] Данные получены с сервера: ${data}`);
     }
 
     private connect = () => {
-        // this.login('1');
 
-        // alert("[open] Соединение установлено");
-        // alert("Отправляем данные на сервер");
-        // this.socket.send("Меня зовут Джон");
     };
+
+    private send(data) {
+        this.socket.send(JSON.stringify(data));
+    }
 
     private login(name) {
         const data: request = {requestType: requestType.login, data: {name: name}};
-        this.socket.send(JSON.stringify(data));
+        this.send(data);
     }
 
-    private getUsers() {
-        const data: request = {requestType: requestType.getUsers};
-        this.socket.send(JSON.stringify(data));
-    }
-
-    private getMessages(count) {
-        const data: request = {requestType: requestType.getMessages, data: {count: count}};
-        this.socket.send(JSON.stringify(data));
-    }
 
     private say(message) {
         let data: request = {requestType: requestType.say, data: {message: message}};
-        this.socket.send(JSON.stringify(data));
-    }
-
-    private logOut() {
-        let data: request = {requestType: requestType.logOut};
-        this.socket.send(JSON.stringify(data));
+        this.send(data);
     }
 
 }
