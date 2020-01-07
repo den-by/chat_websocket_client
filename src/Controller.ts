@@ -88,7 +88,7 @@ class Controller {
         alert(cryptoData);
         const decryptData = Crypto.decryptRC2(cryptoData, this.pass);
         alert (decryptData);
-        this.socket.send(jsonData);
+        this.socket.send(cryptoData);
 
     }
 
