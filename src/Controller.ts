@@ -2,7 +2,7 @@ import UserList from "./UserList";
 import ChatArea from "./ChatArea";
 import Input from "./Input";
 import LoginArea from "./LoginArea";
-import Crypto from './crypto'
+import Crypto from './Crypto'
 
 interface request {
     requestType: requestType;
@@ -38,8 +38,11 @@ class Controller {
     private input: Input;
     private socket: WebSocket;
     private loginArea: LoginArea;
+    private crypto;
+    private pass = 'test';
 
     constructor() {
+        this.crypto = new Crypto;
         this.socket = new WebSocket("ws://127.0.0.1:8080/article/websocket/demo/hello");
         this.userList = new UserList(document.getElementById('userList'));
         this.chatArea = new ChatArea(document.getElementById('textArea'));
@@ -60,7 +63,6 @@ class Controller {
         } catch (e) {
             return;
         }
-        debugger
         switch (+response.responseType) {
             case responseType.newMessage:
                 this.chatArea.addRow(response.data['text']);
@@ -69,7 +71,6 @@ class Controller {
                 this.chatArea.loadMessageList(response.data['messageList']);
                 break;
             case responseType.userList:
-                debugger
                 this.userList.loadUserList(response.data['userList']);
                 break;
             default:
@@ -82,7 +83,13 @@ class Controller {
     };
 
     private send(data) {
-        this.socket.send(JSON.stringify(data));
+        const jsonData = JSON.stringify(data);
+        const cryptoData = Crypto.encryptRC2(jsonData, this.pass);
+        alert(cryptoData);
+        const decryptData = Crypto.decryptRC2(cryptoData, this.pass);
+        alert (decryptData);
+        this.socket.send(jsonData);
+
     }
 
     private login(name) {
