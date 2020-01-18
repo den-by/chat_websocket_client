@@ -8,21 +8,6 @@ class UserList {
         this.render();
     }
 
-    public addUser(userName: string): void {
-        this.userList.push(userName);
-        this.render();
-    }
-
-    public deleteUser(userName: string): void {
-        this.userList = this.userList.filter(value => value !== userName);
-        this.render();
-    }
-
-    public resetUserList(): void {
-        this.userList = [];
-        this.render();
-    }
-
     public loadUserList(userList: string[]): void {
         this.userList = userList;
         this.render();

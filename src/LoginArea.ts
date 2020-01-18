@@ -18,12 +18,7 @@ class LoginArea {
 
     private event() {
         let userName = this.input.value;
-        //this.button.createAttribute('disabled');
         this._callback(userName);
-    }
-
-    enable() {
-        this.button.removeAttribute('disabled');
     }
 }
 

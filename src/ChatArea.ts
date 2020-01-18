@@ -13,12 +13,6 @@ class ChatArea {
         this.render();
     }
 
-    public resetUserList(): void {
-        this.messagesArray = [];
-        this.render();
-    }
-
-
     public loadMessageList(messagesArray: string[]): void {
         this.messagesArray = messagesArray;
         this.render();
@@ -27,8 +21,6 @@ class ChatArea {
     private render(): void {
         this.textArea.value = this.messagesArray.join('\n');
     }
-
-
 }
 
 export default ChatArea;
